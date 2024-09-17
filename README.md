@@ -1,6 +1,6 @@
 # conservation mode script
 
-### bash script to turn ON/OFF conservation mode in my laptop
+### bash script to turn ON/OFF conservation mode in my laptop (ideapad)
 
 <br>
 
