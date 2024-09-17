@@ -1,0 +1,45 @@
+#!/bin/bash
+
+FILE="/sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode"
+
+OPTION=""
+
+if [ $# -gt 0 ]; then
+    if [ $1 = "1" ]; then
+        OPTION="1"
+
+    elif [ $1 = "0" ]; then
+        OPTION="0"
+    
+    else
+        echo Invalid Option, Must be 1 or 0
+        exit 1
+
+    fi
+else
+    VAL=$(< $FILE)
+
+    if [ $VAL = 1 ]; then
+        echo conservation mode is now ON
+    else
+        echo conservation mode is now OFF
+    fi
+    echo
+
+    read -p "choose 1 for ON or 0 for OFF: " OPTION
+
+    until [[ $OPTION = 1 || $OPTION = 0 ]];
+        do
+        read -p "Invalid, Enter 1 or 0 : " OPTION
+        done
+
+fi
+
+if [ $OPTION = 1 ]; then
+    echo "1" | sudo tee $FILE > /dev/null
+    echo you turned the conservation mode ON
+    
+elif [ $OPTION = 0 ]; then
+    echo "0" | sudo tee $FILE > /dev/null
+    echo you turned the conservation mode OFF
+fi
